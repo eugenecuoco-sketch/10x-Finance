@@ -50,11 +50,6 @@
         .text-knowledge { color: #F59E0B; } /* Amber */
         .text-cross { color: #10B981; } /* Emerald */
 
-        .card-hover:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease;
-        }
-
         /* Section Numbering */
         .section-number {
             font-family: 'Roboto', sans-serif;
@@ -79,6 +74,72 @@
             vertical-align: super;
             font-size: 0.6em;
         }
+
+        /* --- FLIP CARD STYLES --- */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem; /* matches rounded-2xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* matches shadow-lg */
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background-color: white;
+            z-index: 2;
+        }
+
+        .flip-card-back {
+            background-color: white;
+            transform: rotateY(180deg);
+            z-index: 1;
+            overflow-y: auto; /* Allow scrolling if text is long */
+        }
+        
+        /* Ensure cards have a uniform height to allow flipping */
+        .card-height {
+            height: 550px; 
+        }
+
+        @media (max-width: 768px) {
+            .card-height {
+                height: 600px; /* Slightly taller on mobile for wrapping text */
+            }
+        }
+
+        /* Checklist Styles */
+        .checkbox-circle {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-width: 2px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body class="antialiased scroll-smooth">
@@ -93,7 +154,7 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#structure" class="text-gray-600 hover:text-core font-medium transition">01. Structure</a>
                     <a href="#protocol" class="text-gray-600 hover:text-core font-medium transition">02. Protocol</a>
-                    <a href="#efficiency" class="text-gray-600 hover:text-core font-medium transition">03. The Game</a>
+                    <a href="#efficiency" class="text-gray-600 hover:text-core font-medium transition">03. The Gain</a>
                     <a href="#goals" class="text-gray-600 hover:text-core font-medium transition">04. Goals</a>
                 </div>
             </div>
@@ -111,9 +172,17 @@
                 Merging <strong>Intentional Structure</strong> (the "What") with <strong>Exponential Agility</strong> (the "How").
                 <br>From a support function to a <span class="text-cyan-300 font-semibold">Connected System</span>.
             </p>
-            <div class="mt-12 inline-flex items-center bg-white bg-opacity-10 rounded-full px-8 py-3 border border-white border-opacity-20 backdrop-blur-md shadow-lg hover:bg-opacity-20 transition cursor-pointer">
-                <span class="text-white font-medium">STRATEGY 2026</span>
+            
+            <!-- Updated Arrow Section -->
+            <div class="mt-16 flex flex-col items-center">
+                <span class="text-cyan-300 font-bold text-lg tracking-wider mb-2 uppercase">The 2026 Strategy</span>
+                <div class="animate-bounce text-white opacity-70 mt-2">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7"></path>
+                    </svg>
+                </div>
             </div>
+
         </div>
     </header>
 
@@ -125,54 +194,132 @@
             <div class="section-header-container">
                 <span class="section-number">01</span>
                 <h2 class="text-4xl font-bold text-gray-900 relative z-10">The 70/10³ Framework</h2>
-                <p class="text-xl text-gray-600 max-w-3xl relative z-10 mt-2">Structuring our time each week to balance Operations with Evolution.</p>
+                <p class="text-xl text-gray-600 max-w-3xl relative z-10 mt-2">Structuring our time each week to balance Operations with Evolution. <span class="text-blue-600 text-sm font-bold ml-2">(Click cards for details)</span></p>
             </div>
 
-
             <!-- Grid of Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 70% Core -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-blue-600 card-hover group p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="bg-blue-100 p-3 rounded-full text-3xl">🏗️</div>
-                        <span class="text-4xl font-black text-blue-600 opacity-20">70%</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- 70% Core Operations (Blue) -->
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-blue-600 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-blue-100 p-3 rounded-full text-3xl">🏗️</div>
+                                    <span class="text-4xl font-black text-blue-600 opacity-20">70%</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Core Operations</h3>
+                                <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wide">Clarity & Discipline</p>
+                                <p class="text-gray-600 mb-6">The "Usual and Customary" work. Flawless execution earns us the right to innovate.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-sm mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-blue-600 p-8 bg-blue-50">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">The Baseline of Excellence</h3>
+                            <div class="space-y-4 text-gray-700 text-sm leading-relaxed">
+                                <p>This represents the roughly 28 hours per week dedicated to our "Usual and Customary" work.</p>
+                                <p>The focus here is on <strong>Clarity and Discipline</strong> as a shared, functional mission across our U.S. and India teams. By hitting 100% of our operational targets within 70% of our capacity, we demonstrate the global efficiency required to earn our "innovation time."</p>
+                                <p>This includes month-end reporting, audit compliance, and foundational P&L management, coordinated seamlessly across our international footprint.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Core Operations</h3>
-                    <p class="text-sm font-semibold text-blue-600 mb-4 uppercase tracking-wide">Clarity & Discipline</p>
-                    <p class="text-gray-600 mb-6">The "Usual and Customary" work. Flawless execution earns us the right to innovate.</p>
                 </div>
 
-                <!-- 10% Innovation -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-cyan-500 card-hover group p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="bg-cyan-100 p-3 rounded-full text-3xl">🚀</div>
-                        <span class="text-4xl font-black text-cyan-500 opacity-20">10%</span>
+                <!-- 10% Innovation (Cyan) -->
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-cyan-500 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-cyan-100 p-3 rounded-full text-3xl">🚀</div>
+                                    <span class="text-4xl font-black text-cyan-500 opacity-20">10%</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Innovation</h3>
+                                <p class="text-sm font-semibold text-cyan-600 mb-4 uppercase tracking-wide">The Finance Lab</p>
+                                <p class="text-gray-600 mb-6">Moving AI from a "side bet" to a core capability. Building the digital workforce.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-sm mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-cyan-500 p-8 bg-cyan-50">
+                            <h3 class="text-xl font-bold text-cyan-800 mb-4">The Finance Lab</h3>
+                            <div class="space-y-4 text-gray-700 text-sm leading-relaxed">
+                                <p>The final ~4 hours is our "Finance Lab." We will move away from treating AI as an external tool and instead embed it as a core capability. This effort will be centered around the onboarding of Aariz Khan, our incoming part-time employee who is studying Finance / AI.</p>
+                                <p class="font-semibold text-cyan-700">Aariz’s mandate as an embedded consultant:</p>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li><strong>Identify Pinch Points:</strong> Scout for recurring workflow bottlenecks that are ripe for automation.</li>
+                                    <li><strong>Optimize Workflows:</strong> Vet and implement the right AI tools and prompting techniques to resolve identified pain points.</li>
+                                    <li><strong>Engineering Liaison:</strong> Partner directly with the Google Workspace engineering team to bring targeted, bespoke finance capabilities to life within our specific ecosystem.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Innovation</h3>
-                    <p class="text-sm font-semibold text-cyan-600 mb-4 uppercase tracking-wide">The Finance Lab</p>
-                    <p class="text-gray-600 mb-6">Moving AI from a "side bet" to a core capability. Building the digital workforce.</p>
                 </div>
 
-                <!-- 10% Knowledge -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-amber-500 card-hover group p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="bg-amber-100 p-3 rounded-full text-3xl">🛡️</div>
-                        <span class="text-4xl font-black text-amber-500 opacity-20">10%</span>
+                <!-- 10% Knowledge Transfer (Amber) -->
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-amber-500 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-amber-100 p-3 rounded-full text-3xl">🛡️</div>
+                                    <span class="text-4xl font-black text-amber-500 opacity-20">10%</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Knowledge Transfer</h3>
+                                <p class="text-sm font-semibold text-amber-600 mb-4 uppercase tracking-wide">Finance Detectives</p>
+                                <p class="text-gray-600 mb-6">Eliminating Single Points of Failure (SPOFs). Building a shared brain.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-sm mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-amber-500 p-8 bg-amber-50">
+                            <h3 class="text-xl font-bold text-amber-800 mb-4">Building the Connected System</h3>
+                            <div class="space-y-4 text-gray-700 text-sm leading-relaxed">
+                                <p>This ~4-hour block is dedicated to de-risking our operations by eliminating Single Points of Failure (SPOFs) and replacing them with automated procedures.</p>
+                                <p>Team members act as <strong>"Finance Detectives"</strong> to identify tribal knowledge and document it – using AI as a primary means for documenting screenshots, videos, and workflows.</p>
+                                <p>The goal is to ensure that if any one person is unavailable, the "connected system" remains fully operational. This includes cross-training sessions, creating "How-To" Loom videos, and shadowing peers while using Gemini to create automation.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Knowledge Transfer</h3>
-                    <p class="text-sm font-semibold text-amber-600 mb-4 uppercase tracking-wide">Finance Detectives</p>
-                    <p class="text-gray-600 mb-6">Eliminating Single Points of Failure (SPOFs). Building a shared brain.</p>
                 </div>
 
-                <!-- 10% Cross-Pollination -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-emerald-500 card-hover group p-8">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="bg-emerald-100 p-3 rounded-full text-3xl">🌱</div>
-                        <span class="text-4xl font-black text-emerald-500 opacity-20">10%</span>
+                <!-- 10% Cross-Pollination (Emerald) -->
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-emerald-500 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-emerald-100 p-3 rounded-full text-3xl">🌱</div>
+                                    <span class="text-4xl font-black text-emerald-500 opacity-20">10%</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Cross-Pollination</h3>
+                                <p class="text-sm font-semibold text-emerald-600 mb-4 uppercase tracking-wide">Workforce Readiness</p>
+                                <p class="text-gray-600 mb-6">Advising everywhere. Anchored by KEF and leadership development.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-sm mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-emerald-500 p-8 bg-emerald-50">
+                            <h3 class="text-xl font-bold text-emerald-800 mb-4">Mission-Driven Impact</h3>
+                            <div class="space-y-4 text-gray-700 text-sm leading-relaxed">
+                                <p>This is our "Advising Everywhere" commitment (~4 hours/week). We anchor this with the <strong>Kaplan Education Foundation (KEF)</strong>—reviewing essays, budgeting, and mock interviews for scholars.</p>
+                                <p class="font-semibold text-emerald-700">Other Growth & Leadership Avenues:</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li><strong>The Leadership Forum:</strong> High-level strategic dialogue.</li>
+                                    <li><strong>The Emerging Leader Program:</strong> Early-career acceleration.</li>
+                                    <li><strong>K4K (Kaplan for Kaplan):</strong> Internal volunteer initiatives.</li>
+                                    <li><strong>KNA Internship Program:</strong> Mentoring finance interns.</li>
+                                </ul>
+                                <p class="italic text-xs mt-2">When in doubt, we refer back to KEF as our primary source of community impact.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Cross-Pollination</h3>
-                    <p class="text-sm font-semibold text-emerald-600 mb-4 uppercase tracking-wide">Workforce Readiness</p>
-                    <p class="text-gray-600 mb-6">Advising everywhere. Anchored by KEF and leadership development.</p>
                 </div>
             </div>
         </section>
@@ -182,41 +329,163 @@
             <div class="section-header-container">
                 <span class="section-number">02</span>
                 <h2 class="text-4xl font-bold text-gray-900 relative z-10">The 10x Protocol</h2>
-                <p class="text-xl text-gray-600 max-w-3xl relative z-10 mt-2">The non-negotiable behaviors to operate like a high-efficiency micro-team.</p>
+                <p class="text-xl text-gray-600 max-w-3xl relative z-10 mt-2">The non-negotiable behaviors to operate like a high-efficiency micro-team. <span class="text-blue-600 text-sm font-bold ml-2">(Click cards for details)</span></p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
                 <!-- Protocol 1 (Blue - Core Alignment) -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-blue-600 p-6 hover:shadow-xl transition duration-300">
-                    <div class="text-blue-600 text-3xl mb-4">🏨</div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Extreme Ownership</h3>
-                    <p class="text-xs font-bold text-blue-500 uppercase mb-3">The "5-Star Hotel"</p>
-                    <p class="text-sm text-gray-600 leading-relaxed">Don't wait for tasks. Act as the General Manager of your function. Anticipate needs.</p>
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-blue-600 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-blue-100 p-3 rounded-full text-3xl">🏨</div>
+                                    <span class="text-4xl font-black text-blue-600 opacity-20">01</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Extreme Ownership</h3>
+                                <p class="text-xs font-bold text-blue-500 uppercase mb-3">The "5-Star Hotel"</p>
+                                <p class="text-sm text-gray-600 leading-relaxed">Don't wait for tasks. Act as the General Manager of your function. Anticipate needs.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-xs mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-blue-600 p-8 bg-blue-50">
+                            <h3 class="text-lg font-bold text-blue-800 mb-3">The "5-Star Hotel" Mindset</h3>
+                            <div class="space-y-3 text-gray-700 text-sm leading-relaxed">
+                                <p>Think of our team as a 5-star hotel. You are all General Managers and the heads for your Departments.</p>
+                                <p>This means you have <strong>extreme ownership</strong> over your functional area. You shouldn't just wait for tasks; you should be constantly asking how to elevate your "department" to a world-class standard.</p>
+                                <p>As General Managers, we have the responsibility to create processes that <strong>prevent problems from ever happening</strong>, rather than spending our time putting out fires from problems that were brought to our attention.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Protocol 2 (Indigo - Toolkit) -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-indigo-500 p-6 hover:shadow-xl transition duration-300">
-                    <div class="text-indigo-500 text-3xl mb-4">⚡</div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Workspace Toolkit</h3>
-                    <p class="text-xs font-bold text-indigo-500 uppercase mb-3">Gemini First</p>
-                    <p class="text-sm text-gray-600 leading-relaxed">Before writing a manual formula or email, prompt AI. Use Apps Script to glue tools together.</p>
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-indigo-500 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-indigo-100 p-3 rounded-full text-3xl">⚡</div>
+                                    <span class="text-4xl font-black text-indigo-500 opacity-20">02</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Workspace Toolkit</h3>
+                                <p class="text-xs font-bold text-indigo-500 uppercase mb-3">Gemini First</p>
+                                <p class="text-sm text-gray-600 leading-relaxed">Before writing a manual formula or email, prompt AI. Use Apps Script to glue tools together.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-xs mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-indigo-500 p-8 bg-indigo-50">
+                            <h3 class="text-lg font-bold text-indigo-800 mb-3">Arming Ourselves</h3>
+                            <p class="text-xs text-gray-600 mb-3 italic">A 10x team doesn't manually format cells.</p>
+                            
+                            <div class="space-y-3 text-xs leading-relaxed text-gray-800">
+                                <div>
+                                    <strong class="text-indigo-700 block mb-1">Data & Formulas</strong>
+                                    <p><span class="font-semibold text-gray-500">Old Way:</span> Struggling with complex formulas.</p>
+                                    <p><span class="font-semibold text-indigo-600">10x Way:</span> "Asking Gemini First." Use it to generate formulas, explain errors, and structure analysis.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-indigo-700 block mb-1">Automation (Apps Script)</strong>
+                                    <p><span class="font-semibold text-gray-500">Old Way:</span> Manual clicks every week.</p>
+                                    <p><span class="font-semibold text-indigo-600">10x Way:</span> Understand scriptable automation exists. Use Gemini to write the code to glue tools together.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-indigo-700 block mb-1">Storytelling</strong>
+                                    <p><span class="font-semibold text-gray-500">Old Way:</span> Dense text blocks.</p>
+                                    <p><span class="font-semibold text-indigo-600">10x Way:</span> Use AI to structure your narrative. Tell the story of the process, not just the steps.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Protocol 3 (Cyan - Innovation Alignment) -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-cyan-500 p-6 hover:shadow-xl transition duration-300">
-                    <div class="text-cyan-500 text-3xl mb-4">🤖</div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Agentic Workflows</h3>
-                    <p class="text-xs font-bold text-cyan-500 uppercase mb-3">The Repetition Audit</p>
-                    <p class="text-sm text-gray-600 leading-relaxed">Identify where you feel like a "robot." Build an Agent to handle that specific task.</p>
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-cyan-500 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-cyan-100 p-3 rounded-full text-3xl">🤖</div>
+                                    <span class="text-4xl font-black text-cyan-500 opacity-20">03</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Agentic Workflows</h3>
+                                <p class="text-xs font-bold text-cyan-500 uppercase mb-3">The Repetition Audit</p>
+                                <p class="text-sm text-gray-600 leading-relaxed">Identify where you feel like a "robot." Build an Agent to handle that specific task.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-xs mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-cyan-500 p-8 bg-cyan-50">
+                            <h3 class="text-lg font-bold text-cyan-800 mb-3">The Discovery Phase</h3>
+                            <div class="space-y-3 text-gray-700 text-sm leading-relaxed">
+                                <p class="text-xs">We won't force these workflows; we treat this as a shared research project.</p>
+                                
+                                <div>
+                                    <strong class="text-cyan-700 block">The Repetition Audit</strong>
+                                    <p class="text-xs">Keep a simple log of tasks where you feel like a "robot" (copy-pasting, moving data, formatting reports).</p>
+                                </div>
+
+                                <div>
+                                    <strong class="text-cyan-700 block">Collective Experiments</strong>
+                                    <p class="text-xs">We will take one logged example and work together in a session to build an Agent for it.</p>
+                                </div>
+
+                                <div class="border-t border-cyan-200 pt-2 mt-2">
+                                    <strong class="text-cyan-900 text-xs uppercase">The Goal</strong>
+                                    <p class="text-xs">One fully functioning Agentic workflow by quarter-end that the whole team understands.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Protocol 4 (Amber - Knowledge Alignment) -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-amber-500 p-6 hover:shadow-xl transition duration-300">
-                    <div class="text-amber-500 text-3xl mb-4">📚</div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Save What Works</h3>
-                    <p class="text-xs font-bold text-amber-500 uppercase mb-3">NotebookLM Library</p>
-                    <p class="text-sm text-gray-600 leading-relaxed">Don't save the messy chat. Ask for the "Optimized Prompt" and save it to our shared brain.</p>
+                <div class="perspective-1000 card-height">
+                    <div class="flip-card-inner" onclick="this.classList.toggle('is-flipped')">
+                        <!-- Front -->
+                        <div class="flip-card-front border-t-4 border-amber-500 p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="bg-amber-100 p-3 rounded-full text-3xl">📚</div>
+                                    <span class="text-4xl font-black text-amber-500 opacity-20">04</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Save What Works</h3>
+                                <p class="text-xs font-bold text-amber-500 uppercase mb-3">NotebookLM Library</p>
+                                <p class="text-sm text-gray-600 leading-relaxed">Don't save the messy chat. Ask for the "Optimized Prompt" and save it to our shared brain.</p>
+                            </div>
+                            <div class="text-center text-gray-400 text-xs mt-4">Tap to flip ↻</div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back border-t-4 border-amber-500 p-8 bg-amber-50">
+                            <h3 class="text-lg font-bold text-amber-800 mb-3">Building Our Library</h3>
+                            <div class="space-y-3 text-gray-700 text-xs leading-relaxed">
+                                <p>We will create a shared <strong>"KNA FinSys Prompt Library"</strong> using Google NotebookLM.</p>
+
+                                <div>
+                                    <strong class="text-amber-700 block">The "Meta-Prompt" Technique</strong>
+                                    <p class="mb-1">Don't copy-paste the chat history. Ask Gemini at the end:</p>
+                                    <p class="italic bg-white p-2 rounded border border-amber-200 text-gray-600">"Analyze our conversation and write me a single, optimized prompt that I can use next time."</p>
+                                </div>
+
+                                <div>
+                                    <strong class="text-amber-700 block">Use Variables</strong>
+                                    <code class="block bg-gray-100 p-2 rounded text-gray-800 mt-1 font-mono text-[10px]">
+                                        "Please normalize formatting in $$Target Column$$... Here is the data: $$Paste Data Here$$"
+                                    </code>
+                                </div>
+                                
+                                <p><strong>Gemini Gems:</strong> Turn frequent recipes into custom Gems (e.g., "Jira Ticket Writer").</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
@@ -244,14 +513,14 @@
                             <div class="text-2xl mr-4">🎯</div>
                             <div>
                                 <p class="text-sm font-bold text-blue-800 uppercase">Success Metric</p>
-                                <p class="text-blue-900">Zero Manual Formatting Errors</p>
+                                <p class="text-blue-900">Extreme Ownership, Timely Deliverables and Problem Prevention</p>
                             </div>
                         </div>
                          <div class="flex items-center p-4 bg-cyan-50 rounded-lg border border-cyan-100">
                             <div class="text-2xl mr-4">⏳</div>
                             <div>
                                 <p class="text-sm font-bold text-cyan-800 uppercase">Reinvestment</p>
-                                <p class="text-cyan-900">~8 Hours/Week recovered for Innovation and Professional Development</p>
+                                <p class="text-cyan-900">~12 Hours/Week recovered for Innovation and Professional Development</p>
                             </div>
                         </div>
                     </div>
@@ -259,47 +528,36 @@
             </div>
         </section>
 
-        <!-- Section 4: Quarterly Goals -->
+        <!-- Section 4: Quarterly KPIs -->
         <section id="goals" class="relative">
             <div class="section-header-container">
                 <span class="section-number">04</span>
-                <h2 class="text-4xl font-bold text-gray-900 relative z-10">Quarterly Goals</h2>
+                <h2 class="text-4xl font-bold text-gray-900 relative z-10">Quarterly KPIs</h2>
                 <p class="text-xl text-gray-600 max-w-3xl relative z-10 mt-2">Quarterly Implementation Targets.</p>
             </div>
 
             <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-gray-800">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Chart Column -->
-                    <div class="lg:col-span-2">
-                        <h3 class="text-lg font-bold text-gray-700 mb-6">Progress Tracker</h3>
-                        <div class="chart-container">
-                            <canvas id="roadmapChart"></canvas>
-                        </div>
+                <h3 class="text-lg font-bold text-gray-700 mb-8">Key Deliverables</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <div class="border-l-4 border-blue-600 pl-4 py-2">
+                        <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">Operational Efficiency</p>
+                        <p class="text-gray-900 font-medium mt-1">100% On-Time Close</p>
                     </div>
                     
-                    <!-- Details Column -->
-                    <div class="lg:col-span-1 space-y-6">
-                        <h3 class="text-lg font-bold text-gray-700 mb-6">Key Deliverables</h3>
-                        
-                        <div class="border-l-4 border-blue-600 pl-4">
-                            <p class="text-sm font-bold text-gray-500">Operational Efficiency</p>
-                            <p class="text-gray-900 font-medium">100% On-Time Close</p>
-                        </div>
-                        
-                        <div class="border-l-4 border-amber-500 pl-4">
-                            <p class="text-sm font-bold text-gray-500">System Resilience</p>
-                            <p class="text-gray-900 font-medium">Remove 3 Critical SPOFs</p>
-                        </div>
+                    <div class="border-l-4 border-amber-500 pl-4 py-2">
+                        <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">System Resilience</p>
+                        <p class="text-gray-900 font-medium mt-1">Remove 3 Critical SPOFs</p>
+                    </div>
 
-                        <div class="border-l-4 border-cyan-500 pl-4">
-                            <p class="text-sm font-bold text-gray-500">Innovation</p>
-                            <p class="text-gray-900 font-medium">1 Agentic Workflow Live</p>
-                        </div>
+                    <div class="border-l-4 border-cyan-500 pl-4 py-2">
+                        <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">Innovation</p>
+                        <p class="text-gray-900 font-medium mt-1">1 Agentic Workflow Live</p>
+                    </div>
 
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <p class="text-sm font-bold text-gray-500">People Growth</p>
-                            <p class="text-gray-900 font-medium">100% Cross-Pollination</p>
-                        </div>
+                    <div class="border-l-4 border-emerald-500 pl-4 py-2">
+                        <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">People Growth</p>
+                        <p class="text-gray-900 font-medium mt-1">100% Cross-Pollination</p>
                     </div>
                 </div>
             </div>
@@ -311,7 +569,7 @@
     <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-2xl font-bold text-cyan-400 mb-4">KNA FINANCE</h2>
-            <p class="text-xl text-gray-400 mb-8">We are building a machine that works for us.</p>
+            <p class="text-xl text-gray-400 mb-8">Connected Coworkers. Problem Prevention. Intelligent Innovaiton.</p>
             <p class="text-sm text-gray-600">© 2026 KNA Finance | The 10x Connected System</p>
         </div>
     </footer>
@@ -387,7 +645,7 @@
                 });
             }
 
-            // Chart 2: Efficiency Game (Bar)
+            // Chart 2: Efficiency Gain (Bar)
             const ctxEfficiency = document.getElementById('efficiencyChart');
             if(ctxEfficiency) {
                 new Chart(ctxEfficiency.getContext('2d'), {
@@ -395,8 +653,8 @@
                     data: {
                         labels: ['Current State', '10x Goal'],
                         datasets: [
-                            { label: 'Manual Work (Hours)', data: [28, 20], backgroundColor: '#2563EB', borderRadius: 6 },
-                            { label: 'Innovation & Development', data: [0, 8], backgroundColor: '#06B6D4', borderRadius: 6 }
+                            { label: 'Manual Work (Hours)', data: [40, 28], backgroundColor: '#2563EB', borderRadius: 6 },
+                            { label: 'Innovation & Development', data: [0, 12], backgroundColor: '#06B6D4', borderRadius: 6 }
                         ]
                     },
                     options: {
@@ -411,31 +669,7 @@
                 });
             }
 
-            // Chart 3: Quarterly Goals (Horizontal Bar)
-            const ctxRoadmap = document.getElementById('roadmapChart');
-            if(ctxRoadmap) {
-                const roadmapLabels = ['Op Efficiency', 'System Resilience', 'Innovation', 'People Growth'];
-                new Chart(ctxRoadmap.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: roadmapLabels,
-                        datasets: [{
-                            label: 'Q1 Completion %',
-                            data: [100, 100, 100, 100],
-                            backgroundColor: ['#2563EB', '#F59E0B', '#06B6D4', '#10B981'],
-                            borderRadius: 6,
-                            barPercentage: 0.6
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: { x: { beginAtZero: true, max: 100, grid: { display: false } }, y: { grid: { display: false } } },
-                        plugins: { legend: { display: false }, tooltip: commonTooltipConfig }
-                    }
-                });
-            }
+            // Chart 3: Quarterly Goals (REMOVED) - The chart logic has been removed as per the request to replace it with a static checklist.
         });
     </script>
 </body>
